@@ -190,6 +190,8 @@ class CameraFragment : Fragment(), Detector.DetectorListener {
 
     override fun onDetect(boundingBoxes: List<BoundingBox>, inferenceTime: Long) {
         requireActivity().runOnUiThread {
+            val fps = 1000f / inferenceTime
+            binding.inferenceInfo.text = "FPS: %.2f\nms: %d".format(fps, inferenceTime)
             binding.overlay.apply {
                 setResults(boundingBoxes)
                 invalidate()
